@@ -134,6 +134,25 @@ router.post("/:id/comment", authMiddleware, async (req, res) => {
       });
     }
   });
+ 
+  router.delete("/:id", authMiddleware, async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+  
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+  
+      if (post.userId.toString() !== req.userId) {
+        return res.status(403).json({ message: "Not authorized" });
+      }
+  
+      await Post.findByIdAndDelete(req.params.id);
+      res.json({ message: "Post deleted successfully" });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
   
 
 module.exports = router;

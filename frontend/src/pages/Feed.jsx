@@ -16,10 +16,14 @@ function Feed() {
   const [posts, setPosts] = useState([]);
   const [openComments, setOpenComments] = useState({});
 
+  const currentUser = localStorage.getItem("username");
+
   const fetchPosts = () => {
     API.get("/posts")
       .then((res) => setPosts(res.data))
-      .catch((err) => console.log("Error fetching posts", err.message));
+      .catch((err) =>
+        console.log("Error fetching posts", err.message)
+      );
   };
 
   const handleLike = async (postId) => {
@@ -28,6 +32,17 @@ function Feed() {
       fetchPosts();
     } catch {
       alert("Failed to like post");
+    }
+  };
+
+  const handleDelete = async (postId) => {
+    if (!window.confirm("Delete this post?")) return;
+
+    try {
+      await API.delete(`/posts/${postId}`);
+      fetchPosts();
+    } catch {
+      alert("Failed to delete post");
     }
   };
 
@@ -64,13 +79,13 @@ function Feed() {
         borderRadius: "8px",
       }}
     >
-   
-
       {/* Create Post */}
       <CreatePost onPostCreated={fetchPosts} />
 
       {posts.length === 0 && (
-        <Typography color="text.secondary">No posts yet</Typography>
+        <Typography color="text.secondary">
+          No posts yet
+        </Typography>
       )}
 
       {posts.map((post) => (
@@ -83,13 +98,29 @@ function Feed() {
           }}
         >
           <CardContent>
-            {/* Username */}
-            <Typography
-              fontWeight="bold"
-              sx={{ color: "#1976d2" }}
+            {/* Username + Delete */}
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
             >
-              @{post.username}
-            </Typography>
+              <Typography
+                fontWeight="bold"
+                sx={{ color: "#1976d2" }}
+              >
+                @{post.username}
+              </Typography>
+
+              {post.username === currentUser && (
+                <Button
+                  size="small"
+                  color="error"
+                  onClick={() => handleDelete(post._id)}
+                >
+                  Delete
+                </Button>
+              )}
+            </Box>
 
             {/* Text */}
             {post.text && (
