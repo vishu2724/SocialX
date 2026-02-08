@@ -108,25 +108,9 @@ SocialX/
 
 ---
 
-## ⚙️ Environment Variables
-
-### Backend (Render)
-```env
-MONGO_URI=your_mongodb_atlas_uri
-JWT_SECRET=your_jwt_secret
-Frontend (Vercel)
-VITE_API_URL=https://socialx-jaxy.onrender.com/api
-🚀 Running Locally
-Backend
-cd backend
-npm install
-npm run dev
-Frontend
-cd frontend
-npm install
-npm run dev
-```
-
 👨‍💻 Author
 Vishu Bhardwaj
 GitHub: https://github.com/vishu2724
+
+⭐ If you like this project
+Give it a ⭐ on GitHub!
