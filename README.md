@@ -58,6 +58,7 @@ A full-stack social media application built using the MERN stack, featuring auth
 
 ## 📁 Project Structure
 
+```text
 SocialX/
 │
 ├── backend/
@@ -76,6 +77,7 @@ SocialX/
 │ └── main.jsx
 │
 └── README.md
+```
 
 
 ---
