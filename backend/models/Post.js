@@ -23,6 +23,12 @@ const postSchema = new mongoose.Schema(
       default: "",
     },
 
+    category: {
+      type: String,
+      enum: ["General", "Academics", "Internships", "Events", "Clubs"],
+      default: "General",
+    },
+
     likes: {
       type: [String], // array of usernames
       default: [],

@@ -10,16 +10,25 @@ import {
   Button,
   TextField,
   Box,
+  Chip
 } from "@mui/material";
 
 function Feed() {
+
   const [posts, setPosts] = useState([]);
   const [openComments, setOpenComments] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const currentUser = localStorage.getItem("username");
 
   const fetchPosts = () => {
-    API.get("/posts")
+
+    const url =
+      selectedCategory === "All"
+        ? "/posts"
+        : `/posts?category=${selectedCategory}`;
+
+    API.get(url)
       .then((res) => setPosts(res.data))
       .catch((err) =>
         console.log("Error fetching posts", err.message)
@@ -66,7 +75,7 @@ function Feed() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [selectedCategory]);
 
   return (
     <Container
@@ -79,8 +88,36 @@ function Feed() {
         borderRadius: "8px",
       }}
     >
+
       {/* Create Post */}
       <CreatePost onPostCreated={fetchPosts} />
+
+      {/* CATEGORY FILTER */}
+      <Box
+        sx={{
+          display: "flex",
+          gap: 1,
+          mb: 2,
+          flexWrap: "wrap"
+        }}
+      >
+        {["All","Academics","Internships","Events","Clubs"].map((cat) => (
+
+          <Button
+            key={cat}
+            size="small"
+            variant={selectedCategory === cat ? "contained" : "outlined"}
+            onClick={() => setSelectedCategory(cat)}
+            sx={{
+              borderRadius: "20px",
+              textTransform: "none"
+            }}
+          >
+            {cat}
+          </Button>
+
+        ))}
+      </Box>
 
       {posts.length === 0 && (
         <Typography color="text.secondary">
@@ -89,6 +126,7 @@ function Feed() {
       )}
 
       {posts.map((post) => (
+
         <Card
           key={post._id}
           sx={{
@@ -97,19 +135,32 @@ function Feed() {
             boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
           }}
         >
+
           <CardContent>
-            {/* Username + Delete */}
+
+            {/* Username + Category + Delete */}
             <Box
               display="flex"
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography
-                fontWeight="bold"
-                sx={{ color: "#1976d2" }}
-              >
-                @{post.username}
-              </Typography>
+
+              <Box display="flex" alignItems="center" gap={1}>
+
+                <Typography
+                  fontWeight="bold"
+                  sx={{ color: "#1976d2" }}
+                >
+                  @{post.username}
+                </Typography>
+
+                <Chip
+  label={post.category || "General"}
+  size="small"
+  color="primary"
+/>
+
+              </Box>
 
               {post.username === currentUser && (
                 <Button
@@ -120,6 +171,7 @@ function Feed() {
                   Delete
                 </Button>
               )}
+
             </Box>
 
             {/* Text */}
@@ -146,6 +198,7 @@ function Feed() {
 
             {/* Actions */}
             <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
+
               <Button
                 size="small"
                 variant="outlined"
@@ -170,6 +223,7 @@ function Feed() {
               >
                 💬 {post.comments.length}
               </Button>
+
             </Box>
 
             {/* Comment Input */}
@@ -190,8 +244,9 @@ function Feed() {
               }}
             />
 
-            {/* Comments List */}
+            {/* Comments */}
             {openComments[post._id] && (
+
               <Box
                 sx={{
                   mt: 1,
@@ -200,6 +255,7 @@ function Feed() {
                   borderRadius: "8px",
                 }}
               >
+
                 {post.comments.length === 0 && (
                   <Typography
                     variant="body2"
@@ -218,11 +274,17 @@ function Feed() {
                     <b>@{c.username}</b> {c.text}
                   </Typography>
                 ))}
+
               </Box>
+
             )}
+
           </CardContent>
+
         </Card>
+
       ))}
+
     </Container>
   );
 }

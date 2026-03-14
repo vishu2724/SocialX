@@ -8,7 +8,7 @@ const router = express.Router();
 // CREATE POST (PROTECTED)
 router.post("/create", authMiddleware, async (req, res) => {
   try {
-    const { text, image } = req.body;
+    const { text, image, category } = req.body;
 
     // validation: at least one required
     if (!text && !image) {
@@ -25,6 +25,7 @@ router.post("/create", authMiddleware, async (req, res) => {
       username: user.username,
       text: text || "",
       image: image || "",
+      category: category || "General",
     });
 
     await newPost.save();
@@ -44,17 +45,25 @@ router.post("/create", authMiddleware, async (req, res) => {
 
 // GET ALL POSTS (FEED)
 router.get("/", async (req, res) => {
-    try {
-      const posts = await Post.find().sort({ createdAt: -1 });
-  
-      res.status(200).json(posts);
-    } catch (error) {
-      res.status(500).json({
-        message: "Failed to fetch posts",
-        error: error.message,
-      });
+  try {
+    const { category } = req.query;
+
+    let filter = {};
+
+    if (category && category !== "All") {
+      filter.category = category;
     }
-  });
+
+    const posts = await Post.find(filter).sort({ createdAt: -1 });
+
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch posts",
+      error: error.message,
+    });
+  }
+});
   
 
 // LIKE / UNLIKE POST (PROTECTED)

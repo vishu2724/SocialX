@@ -1,20 +1,43 @@
 import { useState } from "react";
 import API from "../services/api";
-import { Card, CardContent, TextField, Button, Typography, Box } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
+} from "@mui/material";
 
 function CreatePost({ onPostCreated }) {
+
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
+  const [category, setCategory] = useState("General"); // ⭐ NEW STATE
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!text && !image) return alert("Write something or add image");
 
     try {
-      await API.post("/posts/create", { text, image });
+
+      await API.post("/posts/create", {
+        text,
+        image,
+        category // ⭐ SEND CATEGORY
+      });
+
       setText("");
       setImage("");
+      setCategory("General");
+
       onPostCreated();
+
     } catch {
       alert("Failed to create post");
     }
@@ -25,7 +48,7 @@ function CreatePost({ onPostCreated }) {
       sx={{
         mb: 2,
         borderRadius: "16px",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.08)"
       }}
     >
       <CardContent>
@@ -34,8 +57,8 @@ function CreatePost({ onPostCreated }) {
           Create Post
         </Typography>
 
-        {/* 👇 FORM START */}
         <form onSubmit={handleSubmit}>
+
           <TextField
             multiline
             rows={3}
@@ -43,7 +66,7 @@ function CreatePost({ onPostCreated }) {
             placeholder="What's on your mind?"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            sx={{ mb: 1 }}
+            sx={{ mb: 2 }}
           />
 
           <TextField
@@ -51,8 +74,26 @@ function CreatePost({ onPostCreated }) {
             placeholder="Image URL (optional)"
             value={image}
             onChange={(e) => setImage(e.target.value)}
-            sx={{ mb: 1 }}
+            sx={{ mb: 2 }}
           />
+
+          {/*  CATEGORY DROPDOWN */}
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <InputLabel>Category</InputLabel>
+
+            <Select
+              value={category}
+              label="Category"
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <MenuItem value="General">General</MenuItem>
+              <MenuItem value="Academics">Academics</MenuItem>
+              <MenuItem value="Internships">Internships</MenuItem>
+              <MenuItem value="Events">Events</MenuItem>
+              <MenuItem value="Clubs">Clubs</MenuItem>
+            </Select>
+
+          </FormControl>
 
           <Box textAlign="right">
             <Button
@@ -63,8 +104,8 @@ function CreatePost({ onPostCreated }) {
               POST
             </Button>
           </Box>
+
         </form>
-        {/* 👆 FORM END */}
 
       </CardContent>
     </Card>
