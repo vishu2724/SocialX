@@ -66,6 +66,22 @@ function Feed() {
     }
   };
 
+  const handleReport = async (postId) => {
+
+    try {
+  
+      await API.post(`/posts/${postId}/report`);
+  
+      alert("Post reported");
+  
+    } catch {
+  
+      alert("Failed to report post");
+  
+    }
+  
+  };
+
   const toggleComments = (postId) => {
     setOpenComments((prev) => ({
       ...prev,
@@ -155,10 +171,10 @@ function Feed() {
                 </Typography>
 
                 <Chip
-  label={post.category || "General"}
-  size="small"
-  color="primary"
-/>
+              label={post.category || "General"}
+              size="small"
+              color="primary"
+              />
 
               </Box>
 
@@ -222,6 +238,15 @@ function Feed() {
                 onClick={() => toggleComments(post._id)}
               >
                 💬 {post.comments.length}
+              </Button>
+
+              <Button
+                size="small"
+                variant="outlined"
+                 color="error"
+                 onClick={() => handleReport(post._id)}
+                 >
+                🚩 Report
               </Button>
 
             </Box>

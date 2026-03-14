@@ -162,6 +162,34 @@ router.post("/:id/comment", authMiddleware, async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   });
+
+  //Report Route
+  router.post("/:id/report", authMiddleware, async (req, res) => {
+
+    try {
+  
+      const postId = req.params.id;
+  
+      const user = await User.findById(req.userId);
+  
+      const report = new Report({
+        postId,
+        reportedBy: user.username
+      });
+  
+      await report.save();
+  
+      res.json({ message: "Post reported" });
+  
+    } catch (error) {
+  
+      res.status(500).json({
+        message: "Failed to report post"
+      });
+  
+    }
+  
+  });
   
 
 module.exports = router;
