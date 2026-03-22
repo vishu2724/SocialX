@@ -19,7 +19,7 @@ connectDB();
 
 // test route
 app.get("/", (req, res) => {
-  res.send("Backend running 🚀");
+  res.send("Backend running ");
 });
 
 const PORT = process.env.PORT || 5000;
