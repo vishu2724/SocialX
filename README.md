@@ -1,5 +1,5 @@
 # SocialX 🚀  
-A full-stack social media application built using the MERN stack, featuring authentication, post creation, likes, comments, and role-based delete functionality.
+a full-stack platform for college students to share internships, club activities, events, and academic updates.
 
 ---
 
