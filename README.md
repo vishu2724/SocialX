@@ -4,7 +4,7 @@ A full-stack social media application built using the MERN stack, featuring auth
 ---
 
 ## 🌐 Live Demo
-- **Frontend (Vercel):** https://social-x-indol-psi.vercel.app/
+- **Frontend (Vercel):** vishu-social.vercel.app/
 - **Backend (Render):** https://socialx-jaxy.onrender.com
 
 ---
