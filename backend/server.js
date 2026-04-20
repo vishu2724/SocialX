@@ -9,7 +9,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://vishu-social.vercel.app/"
+    "https://vishu-social.vercel.app"
   ],
   credentials: true
 }));
