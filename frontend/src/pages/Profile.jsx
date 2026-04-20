@@ -26,13 +26,13 @@ function Profile() {
         justifyContent: "center",
         alignItems: "flex-start",
         mt: 4,
+        px: 2,
       }}
     >
       <Card
         sx={{
           width: 420,
           borderRadius: "16px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
           textAlign: "center",
         }}
       >
@@ -40,7 +40,7 @@ function Profile() {
           {/* AVATAR */}
           <Avatar
             sx={{
-              bgcolor: "primary.main",
+              bgcolor: "#cf4bb7",
               width: 80,
               height: 80,
               fontSize: 32,
@@ -65,7 +65,7 @@ function Profile() {
           <Button
             variant="outlined"
             fullWidth
-            sx={{ mt: 3, borderRadius: "20px" }}
+            sx={{ mt: 3, borderRadius: "10px" }}
             onClick={logout}
           >
             Logout

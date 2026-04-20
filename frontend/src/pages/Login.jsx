@@ -36,13 +36,13 @@ function Login() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        px: 2,
       }}
     >
       <Card
         sx={{
           width: 380,
           borderRadius: "16px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
         }}
       >
         <CardContent>
@@ -84,7 +84,7 @@ function Login() {
               type="submit"
               variant="contained"
               fullWidth
-              sx={{ mt: 2, borderRadius: "20px" }}
+              sx={{ mt: 2, borderRadius: "10px", py: 1.1 }}
             >
               Login
             </Button>
@@ -96,7 +96,7 @@ function Login() {
             sx={{ mt: 2 }}
           >
             Don’t have an account?{" "}
-            <Link to="/signup">Signup</Link>
+            <Link to="/signup" style={{ color: "#cf4bb7" }}>Signup</Link>
           </Typography>
         </CardContent>
       </Card>

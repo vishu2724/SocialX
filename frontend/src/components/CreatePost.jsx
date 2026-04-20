@@ -48,13 +48,11 @@ function CreatePost({ onPostCreated }) {
       sx={{
         mb: 2,
         borderRadius: "16px",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.08)"
       }}
     >
       <CardContent>
-
-        <Typography fontWeight="bold" gutterBottom>
-          Create Post
+        <Typography fontWeight="bold" variant="h6" gutterBottom>
+          Share Your Thoughts
         </Typography>
 
         <form onSubmit={handleSubmit}>
@@ -63,7 +61,7 @@ function CreatePost({ onPostCreated }) {
             multiline
             rows={3}
             fullWidth
-            placeholder="What's on your mind?"
+            placeholder="What's on your mind?..."
             value={text}
             onChange={(e) => setText(e.target.value)}
             sx={{ mb: 2 }}
@@ -71,13 +69,12 @@ function CreatePost({ onPostCreated }) {
 
           <TextField
             fullWidth
-            placeholder="Image URL (optional)"
+            placeholder="Image URL"
             value={image}
             onChange={(e) => setImage(e.target.value)}
             sx={{ mb: 2 }}
           />
 
-          {/*  CATEGORY DROPDOWN */}
           <FormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel>Category</InputLabel>
 
@@ -99,9 +96,10 @@ function CreatePost({ onPostCreated }) {
             <Button
               type="submit"
               variant="contained"
-              sx={{ borderRadius: "20px", px: 3 }}
+              fullWidth
+              sx={{ borderRadius: "10px", py: 1.1 }}
             >
-              POST
+              Post
             </Button>
           </Box>
 

@@ -5,10 +5,10 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 
-function App() {
+function App({ themeMode, onToggleTheme }) {
   return (
     <>
-      <Navbar />
+      <Navbar themeMode={themeMode} onToggleTheme={onToggleTheme} />
 
       <Routes>
         <Route path="/" element={<Feed />} />
