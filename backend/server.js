@@ -6,7 +6,13 @@ const cors = require("cors");
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://vishu-social.vercel.app/"
+  ],
+  credentials: true
+}));
 // middleware
 app.use(express.json());
 app.use("/api/auth", require("./routes/auth.routes"));

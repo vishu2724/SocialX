@@ -28,8 +28,9 @@ function Signup() {
       await API.post("/auth/signup", form);
       alert("Signup successful");
       navigate("/login");
-    } catch {
-      alert("Signup failed");
+    } catch (err) {
+      console.log("ERROR:", err.response?.data);
+      alert(err.response?.data?.message || "Signup failed");
     }
   };
 
