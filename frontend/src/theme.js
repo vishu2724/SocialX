@@ -8,7 +8,7 @@ export const getAppTheme = (mode) =>
         ? {
             primary: { main: "#53b9d2" },
             secondary: { main: "#9ed3dc" },
-            background: { default: "#9ed3dc", paper: "#9ed3dc" },
+            background: { default: "#ffffff", paper: "#ffffff" },
             text: { primary: "#0f2e35", secondary: "#29464d" },
           }
         : {
@@ -30,7 +30,7 @@ export const getAppTheme = (mode) =>
           body: {
             background:
               mode === "light"
-                ? "#9ed3dc"
+                ? "#ffffff"
                 : "radial-gradient(circle at top left, #1b1134 0%, #080a0f 45%, #06080d 100%)",
             minHeight: "100vh",
           },
@@ -66,15 +66,13 @@ export const getAppTheme = (mode) =>
           root: {
             ...(mode === "light"
               ? {
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.22) 100%)",
-                  backgroundColor: "rgba(158, 211, 220, 0.28)",
+                  background: "#ffffff",
+                  backgroundColor: "#ffffff",
                   color: "#0f2e35",
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.55)",
-                  boxShadow:
-                    "0 8px 32px rgba(15, 46, 53, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.65)",
-                  backdropFilter: "blur(18px) saturate(180%)",
-                  WebkitBackdropFilter: "blur(18px) saturate(180%)",
+                  borderBottom: "1px solid rgba(15, 46, 53, 0.14)",
+                  boxShadow: "none",
+                  backdropFilter: "none",
+                  WebkitBackdropFilter: "none",
                 }
               : {
                   backgroundColor: "rgba(9, 12, 19, 0.88)",
